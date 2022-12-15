@@ -1,0 +1,36 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package be.cloud;
+
+message Person {
+    string name = 1;
+    int32 id = 2;
+    string email = 3;
+    PhoneNumber number = 4;
+}
+
+message PhoneNumber {
+    string number = 1;
+    PhoneType type = 4 ;
+    //PhoneType type = 4 [default = MOBILE];
+}
+
+enum PhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+}  
+  
+// message Lookup {
+//     repeated Person people = 1;
+// }
+
+message Success {
+    bool success = 1;
+}
+
+service PhoneBook {
+    rpc addPerson(Person) returns (Success); //moet altijd message teruggeven (bool) gaat niet
+    rpc getPhoneNumberByName(Person) returns (PhoneNumber);
+    rpc getNameByPhoneNumber(PhoneNumber) returns (Person);
+}
